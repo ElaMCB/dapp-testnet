@@ -1,6 +1,7 @@
 # dapp-testnet
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Web3](https://img.shields.io/badge/Web3-enabled-8B5CF6.svg)
 ![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)
 ![Solidity](https://img.shields.io/badge/solidity-0.8.20-orange.svg)
 ![Network](https://img.shields.io/badge/network-Base%20Sepolia-0052FF.svg)
