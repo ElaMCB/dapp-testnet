@@ -1,4 +1,13 @@
 # dapp-testnet
+
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)
+![Solidity](https://img.shields.io/badge/solidity-0.8.20-orange.svg)
+![Network](https://img.shields.io/badge/network-Base%20Sepolia-0052FF.svg)
+![Status](https://img.shields.io/badge/status-MVP-success.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-14.0-black.svg)
+
 Decentralized Testing Verification Protocol - a groundbreaking application of Web3 to QA architecture.
 
 ## Overview
