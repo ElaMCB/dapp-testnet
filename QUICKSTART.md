@@ -38,6 +38,11 @@ npm run playwright
 npm run submit-test-results
 ```
 
+Optional (submit an existing JSON report without rerunning tests):
+```bash
+npm run submit-test-results -- --skip-playwright --report-path test-results/results.json
+```
+
 ### 5. View Dashboard
 ```bash
 npm run dev

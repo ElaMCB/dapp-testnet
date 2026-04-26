@@ -1,5 +1,4 @@
 import { ethers } from "ethers";
-import * as path from "path";
 import { execSync } from "child_process";
 import * as dotenv from "dotenv";
 import { parsePlaywrightResults, type PlaywrightTestResult } from "../lib/playwright-parser";
@@ -12,12 +11,41 @@ const TEST_REGISTRY_ABI = [
   "function createStrategy(string memory _strategyId, string memory _name, uint256 _minPassRate, uint256 _minTestCount) public",
 ];
 
-async function runPlaywrightTests(): Promise<PlaywrightTestResult[]> {
+interface CliOptions {
+  reportPath?: string;
+  skipPlaywright: boolean;
+}
+
+function parseCliOptions(): CliOptions {
+  const options: CliOptions = {
+    skipPlaywright: false,
+  };
+
+  const args = process.argv.slice(2);
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (arg === "--report-path") {
+      const value = args[i + 1];
+      if (!value) {
+        throw new Error("Missing value for --report-path");
+      }
+      options.reportPath = value;
+      i++;
+    } else if (arg.startsWith("--report-path=")) {
+      options.reportPath = arg.split("=")[1];
+    } else if (arg === "--skip-playwright") {
+      options.skipPlaywright = true;
+    }
+  }
+
+  return options;
+}
+
+async function runPlaywrightTests(reportPath?: string): Promise<PlaywrightTestResult[]> {
   console.log("Running Playwright tests...");
   
   try {
-    // Run Playwright tests
-    execSync("npx playwright test", { 
+    execSync("npx playwright test", {
       stdio: 'inherit',
       cwd: process.cwd()
     });
@@ -25,11 +53,7 @@ async function runPlaywrightTests(): Promise<PlaywrightTestResult[]> {
     console.log("Some tests may have failed, continuing to submit results...");
   }
 
-  // Parse test results
-  const testResultsDir = path.join(process.cwd(), "test-results");
-  const results = parsePlaywrightResults(testResultsDir);
-
-  return results;
+  return parsePlaywrightResults(reportPath);
 }
 
 async function submitToChain(testResults: PlaywrightTestResult[], strategyId: string) {
@@ -74,11 +98,19 @@ async function submitToChain(testResults: PlaywrightTestResult[], strategyId: st
 
 async function main() {
   const strategyId = process.env.STRATEGY_ID || "sample-strategy-1";
+  const options = parseCliOptions();
+  const reportPath = options.reportPath || process.env.PLAYWRIGHT_REPORT_PATH;
 
   console.log("=== Test Result Submission Script ===\n");
+  if (reportPath) {
+    console.log(`Using Playwright report: ${reportPath}`);
+  } else {
+    console.log("Using default Playwright report lookup paths.");
+  }
   
-  // Run Playwright tests
-  const testResults = await runPlaywrightTests();
+  const testResults = options.skipPlaywright
+    ? parsePlaywrightResults(reportPath)
+    : await runPlaywrightTests(reportPath);
   
   if (testResults.length === 0) {
     console.log("No test results to submit.");
