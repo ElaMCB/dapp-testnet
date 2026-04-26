@@ -4,4 +4,4 @@ Decentralized Testing Verification Protocol - a groundbreaking application of We
 
 ## Visitor count
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FElaMCB%2Fdapp-testnet)](https://hits.seeyoufarm.com)
+[![Visitors](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2FElaMCB%2Fdapp-testnet&label=Visitors&icon=github&color=%23198754)](https://github.com/ElaMCB/dapp-testnet)
