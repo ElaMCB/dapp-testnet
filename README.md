@@ -1,6 +1,6 @@
 # dapp-testnet
 
-Decentralized Testing Verification Protocol - a groundbreaking application of Web3 to QA architecture.
+Verifiable QA pipeline for Web3 teams: run automated tests, anchor the results on-chain, and track strategy compliance in a dashboard.
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/github/license/ElaMCB/dapp-testnet" alt="License"></a>
@@ -15,3 +15,33 @@ Decentralized Testing Verification Protocol - a groundbreaking application of We
   <a href="https://hardhat.org/"><img src="https://img.shields.io/badge/Hardhat-smart%20contracts-FFF100?logo=ethereum&logoColor=black" alt="Hardhat"></a>
   <a href="https://playwright.dev/"><img src="https://img.shields.io/badge/Playwright-E2E-2EAD33?logo=playwright&logoColor=white" alt="Playwright"></a>
 </p>
+
+## What this repo is trying to do
+
+This project turns normal automated test output into tamper-evident compliance records on Base Sepolia.
+It is an MVP for teams that want stronger proof of test execution than CI logs alone.
+
+## How it works
+
+1. Playwright executes end-to-end tests.
+2. A parser converts each test outcome into a compact hashable payload.
+3. `TestRegistry` stores test execution records and verifies them against a strategy (minimum pass rate + minimum test count).
+4. A Next.js dashboard reads on-chain data and shows team compliance status.
+
+## Current MVP scope
+
+- On-chain storage of submitted test executions
+- Strategy creation and strategy-based verification
+- Team compliance metrics (pass rate, passed count, total count)
+- Wallet-connected dashboard view for submitted history
+
+## Quick start
+
+```bash
+npm install
+npm run deploy:base-sepolia
+npm run submit-test-results
+npm run dev
+```
+
+Then open `http://localhost:3000` and connect a wallet on Base Sepolia.
